@@ -57,7 +57,7 @@ func LoginUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	
+
 	// Verificar si el usuario existe
 	if err := database.DB.Where("username = ?", credentials.Username).First(&user).Error; err != nil {
 		fmt.Println("Error al consultar el usuario en la db", err)
@@ -71,7 +71,7 @@ func LoginUser(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Credenciales inválidas"})
 		return
 	}
-	
+
 	// Generar un token JWT
 	token, err := utils.GenerateToken(user.ID)
 	if err != nil {

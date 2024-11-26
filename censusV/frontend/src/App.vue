@@ -70,7 +70,6 @@ export default {
 
     const logout = async () => {
       try {
-        await api.get('/api/logout', { withCredentials: true });
         localStorage.removeItem('token');
         isAuthenticated.value = false;
         authMessage.value = 'Has cerrado sesión exitosamente.';
