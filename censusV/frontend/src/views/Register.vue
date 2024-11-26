@@ -7,27 +7,34 @@
 </template>
 
 <script>
-import { API_URL } from '../config'; // Import the configuration file
+import api from '../services/axiosConfig'; // Import the axios configuration
 
 export default {
-  data() {
-    return { username: '', password: '' };
-  },
-  methods: {
-    async register() {
-      try {
-        const url = new URL('/api/register', API_URL).href; // Ensure the URL is correctly constructed
-        await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username: this.username, password: this.password })
-        });
+data() {
+  return { username: '', password: '' };
+},
+methods: {
+  async register() {
+    try {
+      const credentials = {
+        username: this.username,
+        password: this.password
+      };
+      const response = await api.post('/api/register', credentials, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if (response.status === 200) {
         this.$router.push('/login');
-      } catch (error) {
-        console.error('Error during registration:', error);
+      } else {
+        console.error('Registration failed:', response.data.message);
       }
+    } catch (error) {
+      console.error('Error during registration:', error);
     }
   }
+}
 };
 </script>
 <style scoped>

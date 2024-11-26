@@ -5,6 +5,9 @@ const api = axios.create({
   baseURL: API_URL, // Use the imported variable
 });
 
+// Ensure no default base URL is set
+axios.defaults.baseURL = '';
+
 api.interceptors.request.use(config => {
   const token = localStorage.getItem('token');
   if (token) {
