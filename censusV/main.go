@@ -22,7 +22,7 @@ func init() {
 	}
 }
 
-var loadDataOnRun bool = true
+var loadDataOnRun bool = false
 
 func main() {
 
