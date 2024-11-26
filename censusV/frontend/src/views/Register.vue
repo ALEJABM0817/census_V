@@ -25,7 +25,7 @@ methods: {
           'Content-Type': 'application/json'
         }
       });
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         this.$router.push('/login');
       } else {
         console.error('Registration failed:', response.data.message);
