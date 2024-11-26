@@ -22,7 +22,7 @@ func init() {
 	}
 }
 
-var loadDataOnRun bool = false
+var loadDataOnRun bool = true
 
 func main() {
 
@@ -32,11 +32,12 @@ func main() {
 
 	if loadDataOnRun {
 		// Proporciona la ruta completa al archivo source_data.csv
-		const filePath = "./data/source.data.csv"
+		const filePath = "./data/source_data.csv"
 		// read a file
 		data := loaders.ReadData(filePath)
 		// Se intenta guardar en la base de datos
 		if err := loaders.SaveDataIntoDB(data); err != nil {
+			log.Println("error")
 			return
 		}
 	}

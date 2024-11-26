@@ -37,7 +37,7 @@ export default {
     async fetchData() {
       const params = {
         page: this.currentPage,
-        limit: 2,
+        limit: 20,
         offset: (this.currentPage - 1) * 2,
         education: this.filters.education,
         income: this.filters.income,
