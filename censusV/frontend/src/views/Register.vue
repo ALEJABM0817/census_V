@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import { API_URL } from '../config'; // Import the configuration file
+
 export default {
 data() {
   return { username: '', password: '' };
@@ -14,7 +16,8 @@ data() {
 methods: {
   async register() {
     try {
-      await fetch(`${process.env.URL_HOST}/api/register`, {
+      const url = `${API_URL}/api/register`; // Use the imported variable
+      await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: this.username, password: this.password })

@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { API_URL } from '../config'; // Import the configuration file
 
 const api = axios.create({
-  baseURL: process.env.URL_HOST, 
+  baseURL: API_URL, // Use the imported variable
 });
 
 api.interceptors.request.use(config => {
