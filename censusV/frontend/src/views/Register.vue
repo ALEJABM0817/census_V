@@ -10,24 +10,24 @@
 import { API_URL } from '../config'; // Import the configuration file
 
 export default {
-data() {
-  return { username: '', password: '' };
-},
-methods: {
-  async register() {
-    try {
-      const url = `${API_URL}/api/register`; // Use the imported variable
-      await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: this.username, password: this.password })
-      });
-      this.$router.push('/login');
-    } catch (error) {
-      console.error('Error during registration:', error);
+  data() {
+    return { username: '', password: '' };
+  },
+  methods: {
+    async register() {
+      try {
+        const url = new URL('/api/register', API_URL).href; // Ensure the URL is correctly constructed
+        await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: this.username, password: this.password })
+        });
+        this.$router.push('/login');
+      } catch (error) {
+        console.error('Error during registration:', error);
+      }
     }
   }
-}
 };
 </script>
 <style scoped>
