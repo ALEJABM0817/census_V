@@ -1,46 +1,40 @@
 <template>
-    <form @submit.prevent="handleSubmit">
-      <input
-        type="email"
-        v-model="formData.email"
-        placeholder="Email"
-        required
-      />
-      <input
-        type="password"
-        v-model="formData.password"
-        placeholder="Password"
-        required
-      />
+  <div>
+    <form @submit.prevent="submitForm">
+      <input type="email" v-model="email" placeholder="Email" required />
+      <input type="password" v-model="password" placeholder="Password" required />
       <button type="submit">{{ isLogin ? 'Login' : 'Register' }}</button>
     </form>
-  </template>
-  
-  <script>
-  import api from '../api';
-  
-  export default {
-    props: {
-      isLogin: Boolean,
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  props: {
+    isLogin: { type: Boolean, default: true },
+  },
+  data() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
+  methods: {
+    async submitForm() {
+      const url = this.isLogin ? '/api/login' : '/api/register';
+      try {
+        const response = await axios.post(url, {
+          email: this.email,
+          password: this.password,
+        });
+        this.$store.commit('setToken', response.data.token);
+        this.$router.push('/');
+      } catch (error) {
+        alert('Error: ' + error.response.data.message);
+      }
     },
-    data() {
-      return {
-        formData: {
-          email: '',
-          password: '',
-        },
-      };
-    },
-    methods: {
-      async handleSubmit() {
-        const endpoint = this.isLogin ? '/api/login' : '/api/register';
-        try {
-          await api.post(endpoint, this.formData);
-          this.$router.push('/');
-        } catch (error) {
-          console.error(error);
-        }
-      },
-    },
-  };
-  </script>
+  },
+};
+</script>

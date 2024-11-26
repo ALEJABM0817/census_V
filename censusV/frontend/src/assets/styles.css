@@ -1,0 +1,115 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+}
+
+#app {
+  padding: 20px;
+  max-width: 1200px; 
+  margin: 0 auto;   
+}
+
+h1, h2 {
+  color: #333;
+  text-align: center; 
+}
+
+button {
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background-color: #42a5f5;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #1e88e5;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+
+.filter-panel {
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+
+.summary, .visualizations {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+@media (max-width: 600px) {
+  #app {
+    padding: 10px; 
+  }
+
+  h1, h2 {
+    font-size: 1.5rem; 
+  }
+
+  button {
+    width: 100%; 
+    font-size: 14px; 
+  }
+
+  .filter-panel, .summary, .visualizations {
+    padding: 0.8rem; 
+  }
+}
+
+
+@media (max-width: 900px) {
+  #app {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+}
+
+
+@media (min-width: 1200px) {
+  #app {
+    max-width: 1000px;
+  }
+
+  .filter-panel {
+    display: flex; 
+    justify-content: space-between;
+  }
+
+  .filter-panel > div {
+    flex: 1; 
+    margin-right: 10px;
+  }
+
+  .filter-panel > div:last-child {
+    margin-right: 0; 
+  }
+}

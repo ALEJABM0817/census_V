@@ -3,33 +3,32 @@ package middlewares
 import (
 	"censusV/utils"
 	"net/http"
-	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v4"
 )
 
-func AuthRequired() gin.HandlerFunc {
+func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		authHeader := c.GetHeader("Authorization")
-		if authHeader == "" {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Token no proporcionado"})
+		tokenString := c.GetHeader("Authorization")
+		if tokenString == "" {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Falta token de autorización"})
 			c.Abort()
 			return
 		}
 
-		parts := strings.Split(authHeader, " ")
-		if len(parts) != 2 || parts[0] != "Bearer" {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Formato de token inválido"})
+		// Validar el token
+		token, err := utils.ParseToken(tokenString)
+		if err != nil || !token.Valid {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Token inválido"})
 			c.Abort()
 			return
 		}
 
-		tokenString := parts[1]
-		if _, err := utils.ParseToken(tokenString); err != nil {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Token no válido"})
-			c.Abort()
-			return
-		}
+		// Extraer el userID del token
+		claims := token.Claims.(jwt.MapClaims)
+		userID := uint(claims["sub"].(float64))
+		c.Set("userID", userID)
 
 		c.Next()
 	}
