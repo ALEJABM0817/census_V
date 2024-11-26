@@ -4,7 +4,7 @@
       <nav>
         <ul>
           <li><router-link to="/">Inicio</router-link></li>
-          <li><router-link to="/census">Censos</router-link></li>
+          <li v-if="isAuthenticated"><router-link to="/census">Censos</router-link></li>
           <li v-if="!isAuthenticated"><router-link to="/login">Iniciar sesión</router-link></li>
           <li v-if="!isAuthenticated"><router-link to="/register">Registrarse</router-link></li>
           <li v-if="isAuthenticated" @click="logout">Cerrar sesión</li>
