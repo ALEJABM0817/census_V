@@ -14,7 +14,7 @@ data() {
 methods: {
   async register() {
     try {
-      await fetch('http://localhost:8080/api/register', {
+      await fetch(`${process.env.URL_HOST}/api/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: this.username, password: this.password })
